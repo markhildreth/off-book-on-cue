@@ -1,5 +1,6 @@
 import App from "./components/App.svelte";
 import { history } from "./history.js";
+import { plays } from "./plays.js";
 import { get } from "svelte/store";
 
 const app = new App({
@@ -10,5 +11,6 @@ export default app;
 
 window.get = get;
 window.stores = {
-	history
+	history,
+	plays
 };
