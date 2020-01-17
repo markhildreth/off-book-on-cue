@@ -1,6 +1,6 @@
 <script>
-	import { addPlay } from "../plays.js";
-	import { push } from "../history.js";
+	import { addPlay } from "../stores/plays";
+	import { push } from "../stores/history";
 
 	let form;
 	let input

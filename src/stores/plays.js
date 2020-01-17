@@ -1,5 +1,4 @@
-import produce from "immer";
-import { immerStore } from "./stores";
+import { immerStore } from "./base";
 
 export const plays = immerStore({ plays: {} });
 

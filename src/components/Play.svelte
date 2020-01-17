@@ -1,7 +1,7 @@
 <script>
 	export let id;
 
-	import { plays } from "../plays.js";
+	import { plays } from "../stores";
 
 	$: play = $plays.plays[id];
 </script>

@@ -1,5 +1,5 @@
 <script>
-	import { push } from "../history.js";
+	import { push } from "../stores/history";
 </script>
 
 <div class="flex flex-col justify-evenly items-center h-full">

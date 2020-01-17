@@ -1,6 +1,5 @@
 <script>
-	import { loading } from "../stores";
-	import { appState } from "../app_state.js";
+	import { loading, appState } from "../stores";
 	import Loading from "./Loading.svelte";
 	import Header from "./Header.svelte";
 	import Landing from "./Landing.svelte";

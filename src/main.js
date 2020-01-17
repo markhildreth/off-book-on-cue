@@ -1,9 +1,6 @@
 import App from "./components/App.svelte";
-import { history } from "./history.js";
-import { plays } from "./plays.js";
-import { appState } from "./app_state.js";
+import * as stores from "./stores";
 import { get } from "svelte/store";
-import { loading } from "./stores";
 
 const app = new App({
 	target: document.body
@@ -12,13 +9,8 @@ const app = new App({
 export default app;
 
 window.get = get;
-window.stores = {
-	loading,
-	history,
-	plays,
-	appState
-};
+window.stores = stores;
 
 setTimeout(() => {
-	loading.set(false);
+	stores.loading.set(false);
 }, 1000);
