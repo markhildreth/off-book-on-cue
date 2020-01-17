@@ -1,17 +1,15 @@
 import produce from "immer";
-import { writable } from 'svelte/store';
+import { immerStore } from "./stores";
 
-export const plays = writable({ plays: {} });
+export const plays = immerStore({ plays: {} });
 
 export const addPlay = ({ name }) => {
-	plays.update(s => {
-		return produce(s, d => {
-			d.plays[0] = {
-				name,
-				scenes: []
-			};
-		});
+	const id = Math.floor(Math.random() * 100000);
+	plays.update(d => {
+		d.plays[id] = {
+			name,
+			scenes: []
+		};
 	});
-
-	return 0;
+	return id;
 };

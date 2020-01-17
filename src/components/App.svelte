@@ -1,5 +1,7 @@
 <script>
+	import { loading } from "../stores";
 	import { appState } from "../app_state.js";
+	import Loading from "./Loading.svelte";
 	import Header from "./Header.svelte";
 	import Landing from "./Landing.svelte";
 	import How from "./How.svelte";
@@ -15,7 +17,9 @@
 </header>
 
 <div class="h-full w-full pt-16">
-	{#if screen === "landing"}
+	{#if $loading}
+	<Loading />
+	{:else if screen === "landing"}
 	<Landing />
 	{:else if screen === "how"}
 	<How />
