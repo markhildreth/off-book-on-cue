@@ -4,6 +4,7 @@
 	import Landing from "./Landing.svelte";
 	import How from "./How.svelte";
 	import Error from "./Error.svelte";
+	import NewPlay from "./NewPlay.svelte";
 
 	$: location = $history.location;
 </script>
@@ -17,6 +18,8 @@
 	<Landing />
 	{:else if location === "/how"}
 	<How />
+	{:else if location === "/new_play"}
+	<NewPlay />
 	{:else}
 	<Error />
 	{/if}

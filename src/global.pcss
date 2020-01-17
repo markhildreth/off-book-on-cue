@@ -7,8 +7,12 @@
 }
 
 .button {
-	@apply text-xl text-white font-semibold rounded-lg px-8 py-4 cursor-pointer;
+	@apply text-xl text-white font-semibold rounded-lg px-4 py-1 cursor-pointer;
 	@apply bg-blue-500;
+}
+
+.button-lg {
+	@apply px-8 py-4;
 }
 
 .button:hover {
@@ -21,4 +25,8 @@
 
 .button:focus {
 	outline: 0;
+}
+
+input[type=text] {
+	@apply p-2;
 }
