@@ -1,0 +1,15 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module"
+  },
+  "plugins": ["prettier"],
+  "extends": ["eslint:recommended"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
