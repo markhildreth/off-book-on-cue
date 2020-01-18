@@ -1,5 +1,6 @@
-import { history } from "./history.js";
-import { plays } from "./plays.js";
+import { loading } from "./loading";
+import { history } from "./history";
+import { plays } from "./plays";
 import { get, derived } from 'svelte/store';
 
 const lookup = {
@@ -7,7 +8,11 @@ const lookup = {
 	"/new_play": { screen: "new_play" },
 };
 
-export const appState = derived(history, ({ location }) => {
+export const appState = derived([loading, history], ([loading, { location }]) => {
+	if (loading) {
+		return { screen: "loading" };
+	}
+
 	const result = lookup[location];
 	if (result != null) {
 		return result;
