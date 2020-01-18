@@ -1,3 +1,7 @@
-<div class="flex px-4 h-full justify-between items-center bg-blue-600 text-gray-100">
-	<h1 class="text-lg">Learn You Some Lines</h1>
-</div>
+<script>
+	import { title } from "../stores";
+</script>
+
+<header class="bg-blue-600 text-gray-100 px-4 h-full flex justify-center items-center">
+	<h1 class="text-lg text-center font-semibold">{$title}</h1>
+</header>

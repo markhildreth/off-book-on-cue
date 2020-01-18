@@ -12,9 +12,11 @@
 	$: screen = $appState.screen;
 </script>
 
+{#if screen !== "loading"}
 <header class="fixed h-16 w-full top-0">
 	<Header />
 </header>
+{/if}
 
 <div class="h-full w-full pt-16">
 	{#if screen === "loading"}
