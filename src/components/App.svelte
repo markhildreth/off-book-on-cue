@@ -8,6 +8,7 @@
 	import Plays from "./Plays.svelte";
 	import Error from "./Error.svelte";
 	import NewPlay from "./NewPlay.svelte";
+	import Record from "./Record.svelte";
 
 	$: screen = $appState.screen;
 </script>
@@ -31,6 +32,8 @@
 	<Plays />
 	{:else if screen === "play"}
 	<Play id={$appState.id} />
+	{:else if screen === "record"}
+	<Record id={$appState.id} />
 	{:else if screen === "error" }
 	<Error message={$appState.message} />
 	{:else}

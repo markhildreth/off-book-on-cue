@@ -10,17 +10,17 @@ const lookup = {
 
 export const appState = derived(
 	[loading, history],
-	([loading, { location }]) => {
+	([loading, { path, args }]) => {
 		if (loading) {
 			return { screen: "loading" };
 		}
 
-		const result = lookup[location];
+		const result = lookup[path];
 		if (result != null) {
 			return result;
 		}
 
-		if (location === "/") {
+		if (path === "/") {
 			const knownPlays = get(plays).plays;
 			if (Object.keys(knownPlays).length === 0) {
 				return { screen: "landing" };
@@ -29,12 +29,24 @@ export const appState = derived(
 			}
 		}
 
-		if (location.startsWith("/play/")) {
+		if (path === "/play") {
+			const id = parseInt(args.id);
 			const knownPlays = get(plays).plays;
-			const parts = location.split("/");
-			const id = parseInt(parts[2]);
 			if (knownPlays[id]) {
 				return { screen: "play", id };
+			} else {
+				return {
+					screen: "error",
+					message: `Could not find play with id "${id}"`
+				};
+			}
+		}
+
+		if (path === "/play/record") {
+			const id = parseInt(args.id);
+			const knownPlays = get(plays).plays;
+			if (knownPlays[id]) {
+				return { screen: "record", id };
 			} else {
 				return {
 					screen: "error",

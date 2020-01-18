@@ -1,20 +1,30 @@
 import { writable } from "svelte/store";
 
-export const history = writable({
-	location: window.location.pathname
-});
+const buildLocation = (path, args) => {
+	return path + "?" + new URLSearchParams(args).toString();
+}
+
+const parseLocation = (location) => {
+	const path = location.pathname;
+	const args = Object.fromEntries(new URLSearchParams(location.search));
+	return { path, args };
+}
+
+export const history = writable(parseLocation(window.location));
 
 const listener = window.addEventListener("popstate", () => {
-	history.set({ location: window.location.pathname });
+	const data = parseLocation(window.location);
+	history.set(data);
 
 	return () => {
 		window.removeEventListener(listener);
 	};
 });
 
-export const push = location => {
+export const push = (path, args={}) => {
 	return () => {
-		window.history.pushState(null, "", location);
-		history.set({ location });
+		const newLocation = buildLocation(path, args);
+		window.history.pushState(null, "", newLocation);
+		history.set({ path, args });
 	};
 };

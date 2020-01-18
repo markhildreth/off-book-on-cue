@@ -2,12 +2,13 @@
 	export let id;
 
 	import { plays } from "../stores";
+	import { push } from "../stores/history";
 
 	$: play = $plays.plays[id];
 </script>
 
 <div class="relative w-full h-full">
-	<div class="absolute top-0 right-0 p-4 m-8 h-16 w-16 bg-red-400 rounded-full flex items-center justify-center">
+	<div on:click={push("/play/record", { id })} class="absolute top-0 right-0 p-4 m-8 h-16 w-16 bg-red-400 rounded-full flex items-center justify-center cursor-pointer">
 		REC
 	</div>
 	<ul class="text-md w-full h-full overflow-y-scroll">
