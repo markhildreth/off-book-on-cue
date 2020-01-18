@@ -2,9 +2,10 @@ import localForage from "localforage";
 
 export class Backer {
 	constructor(config) {
-		this.configs = Object
-			.entries(config)
-			.map(([key, store]) => ({ key, store }));
+		this.configs = Object.entries(config).map(([key, store]) => ({
+			key,
+			store
+		}));
 	}
 
 	async initialize() {
@@ -28,4 +29,4 @@ export class Backer {
 			});
 		});
 	}
-};
+}

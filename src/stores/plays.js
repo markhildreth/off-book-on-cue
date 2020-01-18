@@ -1,6 +1,6 @@
-import { immerStore } from "./base";
+import { ImmerStore } from "./base";
 
-export const plays = immerStore({ plays: {} });
+export const plays = new ImmerStore({ plays: {} });
 
 export const addPlay = ({ name }) => {
 	const id = Math.floor(Math.random() * 100000);
