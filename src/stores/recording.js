@@ -40,3 +40,10 @@ export const stopRecording = () => {
 		clearInterval(fakeRecordingInterval);
 	}
 };
+
+export const cancelRecording = () => {
+	if (fakeRecordingStarted != null) {
+		recording.set(defaultState);
+		clearInterval(fakeRecordingInterval);
+	}
+};

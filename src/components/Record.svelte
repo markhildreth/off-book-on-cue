@@ -1,6 +1,7 @@
 <script>
+	import { onDestroy } from "svelte";
 	import { recording } from "../stores";
-	import { startRecording, setMyLine, stopRecording } from "../stores/recording";
+	import { startRecording, setMyLine, stopRecording, cancelRecording} from "../stores/recording";
 
 	const padNum = n => n < 10 ? "0" + n : n.toString();
 	const formatTimeFromSeconds = sec => {
@@ -26,6 +27,12 @@
 			ev.preventDefault();
 		}
 	}
+
+	onDestroy(() => {
+		if (isRecording) {
+			cancelRecording();
+		}
+	});
 </script>
 
 <div class="h-full flex flex-col justify-evenly items-center">
