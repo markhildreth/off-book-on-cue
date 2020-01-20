@@ -1,4 +1,6 @@
 <script>
+	export let isUserLine;
+
 	const PERSON = "&#x1F464";
 	const SPEECH_BALLOON = "&#x1F4AC";
 	const PEOPLE = "&#x1F465";
@@ -28,6 +30,6 @@
 
 <div class="speech">
 	<span class="text-6xl">{@html PERSON}</span>
-	<span class="text-6xl flip-v-axis">{@html SPEECH_BALLOON}</span>
+	<span class="text-6xl" class:flip-v-axis={!isUserLine}>{@html SPEECH_BALLOON}</span>
 	<span class="text-6xl">{@html PEOPLE}</span>
 </div>

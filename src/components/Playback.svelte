@@ -4,7 +4,7 @@
 	import Progress from "./playback/Progress";
 	import Controls from "./playback/Controls";
 
-	import { playlist, scenes } from "../stores";
+	import { playlist, scenes, playback } from "../stores";
 	import { back } from "../stores/history";
 
 	function shrink() {
@@ -21,8 +21,8 @@
 	</div>
 	<OptionSliders />
 	<div class="flex-grow">
-		<Speech />
+		<Speech isUserLine={$playback.isUserLine} />
 	</div>
-	<Progress />
+	<Progress elapsedMs={$playback.elapsedMs} durationMs={$playback.durationMs}/>
 	<Controls />
 </div>

@@ -4,6 +4,7 @@
 	import { plays, scenes } from "../stores";
 	import { push } from "../stores/history";
 	import { selectScene } from "../stores/currentScene";
+	import { changeScene } from "../stores/playback";
 
 	$: play = $plays.plays[id];
 	$: sceneInfos = play.scenes.map(sceneId => {
@@ -13,6 +14,7 @@
 
 	function sceneSelected(sceneId) {
 		selectScene({ playId: id, sceneId });
+		changeScene({ sceneId });
 	}
 
 	function onRecordClicked() {
