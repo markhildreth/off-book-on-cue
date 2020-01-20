@@ -14,10 +14,15 @@
 	function sceneSelected(sceneId) {
 		selectScene({ playId: id, sceneId });
 	}
+
+	function onRecordClicked() {
+		push("/play/record", { id });
+	}
+
 </script>
 
 <div class="relative w-full h-full">
-	<div on:click={push("/play/record", { id })} class="absolute top-0 right-0 p-4 m-8 h-16 w-16 bg-red-400 rounded-full flex items-center justify-center cursor-pointer">
+	<div on:click={onRecordClicked} class="absolute top-0 right-0 p-4 m-8 h-16 w-16 bg-red-400 rounded-full flex items-center justify-center cursor-pointer">
 		REC
 	</div>
 	{#if sceneInfos.length === 0}

@@ -55,6 +55,11 @@ export const appState = derived(
 			}
 		}
 
+		if (path === "/playback") {
+			return {
+				screen: "playback"
+			}
+		}
 		return { screen: "error" };
 	}
 );
