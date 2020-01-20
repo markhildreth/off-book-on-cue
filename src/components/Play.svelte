@@ -3,12 +3,17 @@
 
 	import { plays, scenes } from "../stores";
 	import { push } from "../stores/history";
+	import { selectScene } from "../stores/currentScene";
 
 	$: play = $plays.plays[id];
 	$: sceneInfos = play.scenes.map(sceneId => {
 		const scene = $scenes.scenes[sceneId];
 		return { id: sceneId, name: scene.name };
 	});
+
+	function sceneSelected(sceneId) {
+		selectScene({ playId: id, sceneId });
+	}
 </script>
 
 <div class="relative w-full h-full">
@@ -20,7 +25,7 @@
 	{:else}
 	<ul class="text-md w-full h-full overflow-y-scroll">
 		{#each sceneInfos as scene (scene.id)}
-		<li class="p-4 border-b-2">{scene.name}</li>
+		<li on:click={() => sceneSelected(scene.id)} class="p-4 border-b-2 cursor-pointer">{scene.name}</li>
 		{/each}
 	</ul>
 	{/if}

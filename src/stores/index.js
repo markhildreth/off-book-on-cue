@@ -5,5 +5,7 @@ import { history } from "./history";
 import { loading } from "./loading";
 import { title } from "./title";
 import { recording } from "./recording";
+import { currentScene } from "./currentScene";
+import { playlist } from "./playlist";
 
-export { plays, scenes, appState, history, loading, title, recording };
+export { plays, scenes, appState, history, loading, title, recording, currentScene, playlist };

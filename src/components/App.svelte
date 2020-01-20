@@ -1,5 +1,5 @@
 <script>
-	import { appState } from "../stores";
+	import { appState, currentScene } from "../stores";
 	import Loading from "./Loading.svelte";
 	import Header from "./Header.svelte";
 	import Landing from "./Landing.svelte";
@@ -9,8 +9,10 @@
 	import Error from "./Error.svelte";
 	import NewPlay from "./NewPlay.svelte";
 	import Record from "./Record.svelte";
+	import Playback from "./Playback.svelte";
 
 	$: screen = $appState.screen;
+	$: showPlaybackFooter = $currentScene != null;
 </script>
 
 {#if screen !== "loading"}
@@ -19,7 +21,7 @@
 </header>
 {/if}
 
-<div class="h-full w-full pt-16">
+<div class="h-full w-full absolute pt-16" class:pb-16={showPlaybackFooter}>
 	{#if screen === "loading"}
 	<Loading />
 	{:else if screen === "landing"}
@@ -40,3 +42,10 @@
 	<Error message={`Unknown screen "${screen}"`} />
 	{/if}
 </div>
+
+{#if showPlaybackFooter}
+<footer class="fixed h-16 w-full bottom-0 top-shadow">
+	<Playback />
+</footer>
+<div class="h-16"></div>
+{/if}
