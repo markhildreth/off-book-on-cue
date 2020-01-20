@@ -1,9 +1,10 @@
 import "localforage";
 
+import { get } from "svelte/store";
 import App from "./components/App.svelte";
 import * as stores from "./stores";
 import { Backer } from "./backer";
-import { get } from "svelte/store";
+import { replace } from "./stores/history";
 
 window.get = get;
 window.stores = stores;
@@ -19,11 +20,21 @@ const backer = new Backer({
 	scenes: stores.scenes
 });
 
-backer
-	.initialize()
-	.catch(e => {
+const start = async () => {
+	try {
+		await backer.initialize();
+	} catch (e) {
 		console.log(e);
-	})
-	.finally(() => {
-		stores.loading.set(false);
-	});
+	}
+
+	// TODO: Probably a better way to deal with this, but if we start out in
+	// the playback screen, we want to move to the play screen.
+	const history = get(stores.history);
+	const playlist = get(stores.playlist);
+	if (history.path === "/play/playback") {
+		replace("/play", { id: history.args.id });
+	}
+	stores.loading.set(false);
+};
+
+start();

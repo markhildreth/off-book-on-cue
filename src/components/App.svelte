@@ -9,10 +9,11 @@
 	import Error from "./Error.svelte";
 	import NewPlay from "./NewPlay.svelte";
 	import Record from "./Record.svelte";
+	import PlaybackBar from "./PlaybackBar.svelte";
 	import Playback from "./Playback.svelte";
 
 	$: screen = $appState.screen;
-	$: showPlaybackFooter = $currentScene != null;
+	$: showPlaybackFooter = $currentScene != null && screen !== "playback";
 </script>
 
 {#if screen !== "loading"}
@@ -36,6 +37,8 @@
 	<Play id={$appState.id} />
 	{:else if screen === "record"}
 	<Record id={$appState.id} />
+	{:else if screen === "playback" }
+	<Playback />
 	{:else if screen === "error" }
 	<Error message={$appState.message} />
 	{:else}
@@ -45,7 +48,7 @@
 
 {#if showPlaybackFooter}
 <footer class="fixed h-16 w-full bottom-0 top-shadow">
-	<Playback />
+	<PlaybackBar />
 </footer>
 <div class="h-16"></div>
 {/if}

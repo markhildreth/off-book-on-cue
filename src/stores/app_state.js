@@ -55,9 +55,10 @@ export const appState = derived(
 			}
 		}
 
-		if (path === "/playback") {
+		if (path === "/play/playback") {
 			return {
-				screen: "playback"
+				screen: "playback",
+				id: parseInt(args.id)
 			}
 		}
 		return { screen: "error" };

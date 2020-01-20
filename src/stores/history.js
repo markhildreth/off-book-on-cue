@@ -32,3 +32,7 @@ export const replace = (path, args={}) => {
 	window.history.replaceState(null, "", newLocation);
 	history.set({ path, args });
 }
+
+export const back = () => {
+	window.history.back();
+}
