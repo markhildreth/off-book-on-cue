@@ -15,7 +15,8 @@ const app = new App({
 export default app;
 
 const backer = new Backer({
-	plays: stores.plays
+	plays: stores.plays,
+	scenes: stores.scenes
 });
 
 backer

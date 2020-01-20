@@ -2,6 +2,8 @@
 	import { onDestroy } from "svelte";
 	import { recording, history } from "../../stores";
 	import { startRecording, setMyLine, finishRecording, cancelRecording } from "../../stores/recording";
+	import { addScene } from "../../stores/scenes";
+	import { addSceneToPlay } from "../../stores/plays";
 	import { replace } from "../../stores/history";
 
 	const padNum = n => n < 10 ? "0" + n : n.toString();
@@ -31,6 +33,12 @@
 
 	function stopRecording() {
 		if (isRecording) {
+			const name = $recording.name;
+			const playId = $history.args.id;
+			const sceneId = addScene({ name: $recording.name });
+			addSceneToPlay({ playId, sceneId });
+
+			// TODO: Need to save recording.
 			finishRecording();
 			replace("/play", { id: $history.args.id });
 		}

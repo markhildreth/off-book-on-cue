@@ -12,3 +12,9 @@ export const addPlay = ({ name }) => {
 	});
 	return id;
 };
+
+export const addSceneToPlay = ({ playId, sceneId }) => {
+	plays.update(d => {
+		d.plays[playId].scenes.push(sceneId);
+	});
+};
