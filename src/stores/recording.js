@@ -1,18 +1,27 @@
 import { ImmerStore } from "./base";
 
 const defaultState = {
-	state: 'not_recording',
+	state: "initial",
+	playId: null,
+	name: null,
 	timeMs: 0,
-	isMyLine: false
+	isMyLine: false,
 };
 export const recording = new ImmerStore(defaultState);
+
+export const nameScene = ({ name }) => {
+	recording.update(d => {
+		d.name = name;
+		d.state = "studio";
+	});
+};
 
 export const startRecording = () => {
 	fakeRecordingStarted = new Date();
 	fakeRecordingInterval = setInterval(updateFake, 100);
 
 	recording.update(d => {
-		d.state = 'recording';
+		d.state = "recording";
 	});
 }
 
@@ -34,7 +43,7 @@ export const setMyLine = b => {
 	}
 };
 
-export const stopRecording = () => {
+export const finishRecording = () => {
 	if (fakeRecordingStarted != null) {
 		recording.set(defaultState);
 		clearInterval(fakeRecordingInterval);

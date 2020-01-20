@@ -21,6 +21,7 @@ const listener = window.addEventListener("popstate", () => {
 	};
 });
 
+// TODO: Get rid of the extra function call.
 export const push = (path, args={}) => {
 	return () => {
 		const newLocation = buildLocation(path, args);
@@ -28,3 +29,9 @@ export const push = (path, args={}) => {
 		history.set({ path, args });
 	};
 };
+
+export const replace = (path, args={}) => {
+	const newLocation = buildLocation(path, args);
+	window.history.replaceState(null, "", newLocation);
+	history.set({ path, args });
+}
