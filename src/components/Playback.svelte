@@ -24,5 +24,5 @@
 		<Speech isPlaying={$playback.isPlaying} isUserLine={$playback.isUserLine} />
 	</div>
 	<Progress elapsedMs={$playback.elapsedMs} durationMs={$playback.durationMs}/>
-	<Controls />
+	<Controls isPlaying={$playback.isPlaying} />
 </div>

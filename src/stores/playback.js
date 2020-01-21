@@ -33,3 +33,17 @@ const updateFake = () => {
 	lastUpdate = newUpdate;
 };
 setInterval(updateFake, 100);
+
+export const pause = () => {
+	playback.update(d => {
+		d.isPlaying = false;
+	});
+	isFakePlaying = false;
+}
+
+export const resume = () => {
+	playback.update(d => {
+		d.isPlaying = true;
+	});
+	isFakePlaying = true;
+}
