@@ -21,7 +21,7 @@
 	</div>
 	<OptionSliders />
 	<div class="flex-grow">
-		<Speech isUserLine={$playback.isUserLine} />
+		<Speech isPlaying={$playback.isPlaying} isUserLine={$playback.isUserLine} />
 	</div>
 	<Progress elapsedMs={$playback.elapsedMs} durationMs={$playback.durationMs}/>
 	<Controls />

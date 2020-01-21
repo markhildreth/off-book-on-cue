@@ -1,6 +1,8 @@
 <script>
 	import { playlist } from "../stores";
 	import { push } from "../stores/history";
+	import Play from "./icons/Play";
+	import Pause from "./icons/Pause";
 
 	function openFullPlayback() {
 		push("/play/playback", { id: $playlist.playId });
@@ -9,6 +11,6 @@
 
 <div on:click={openFullPlayback} class="flex h-full w-full justify-between items-center px-2 cursor-pointer">
 	<p>{$playlist.scene.name}</p>
-	<p>Play</p>
+	<Pause class="h-full"/>
 </div>
 

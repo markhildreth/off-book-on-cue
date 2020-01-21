@@ -50,8 +50,20 @@ input[type=range]:focus {
 	font-size: .25rem;
 }
 
-.flip-v-axis {
+.flip-y-axis {
 	transform: rotateY(180deg);
+}
+
+@keyframes pulse {
+    25% { transform: scale(0.8); }
+    75% { transform: scale(1.2); }
+}
+
+.pulse {
+	animation-name: pulse;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
 }
 
 @tailwind utilities;

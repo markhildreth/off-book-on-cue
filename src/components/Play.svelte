@@ -5,6 +5,7 @@
 	import { push } from "../stores/history";
 	import { selectScene } from "../stores/currentScene";
 	import { changeScene } from "../stores/playback";
+	import Microphone from "./icons/Microphone";
 
 	$: play = $plays.plays[id];
 	$: sceneInfos = play.scenes.map(sceneId => {
@@ -24,8 +25,8 @@
 </script>
 
 <div class="relative w-full h-full">
-	<div on:click={onRecordClicked} class="absolute top-0 right-0 p-4 m-8 h-16 w-16 bg-red-400 rounded-full flex items-center justify-center cursor-pointer">
-		REC
+	<div on:click={onRecordClicked} class="absolute top-0 right-0 p-2 m-4 h-16 w-16 bg-red-400 rounded-full flex items-center justify-center cursor-pointer">
+		<Microphone />
 	</div>
 	{#if sceneInfos.length === 0}
 	<p class="text-center mt-4 text-xl">No Scenes recorded.</p>

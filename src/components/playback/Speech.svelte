@@ -1,9 +1,10 @@
 <script>
+	import SpeechBubble from "../icons/SpeechBubble.svelte";
+	import User from "../icons/User.svelte";
+	import Group from "../icons/Group.svelte";
 	export let isUserLine;
+	export let isPlaying;
 
-	const PERSON = "&#x1F464";
-	const SPEECH_BALLOON = "&#x1F4AC";
-	const PEOPLE = "&#x1F465";
 </script>
 
 <style>
@@ -28,8 +29,14 @@
 	}
 </style>
 
-<div class="speech">
-	<span class="text-6xl">{@html PERSON}</span>
-	<span class="text-6xl" class:flip-v-axis={!isUserLine}>{@html SPEECH_BALLOON}</span>
-	<span class="text-6xl">{@html PEOPLE}</span>
+<div class="speech mx-4">
+	<div>
+		<User class="w-full h-full"/>
+	</div>
+	<div class:invisible={!isPlaying}>
+		<SpeechBubble class="w-full h-full {isUserLine ? "pulse" : "flip-y-axis"}"/>
+	</div>
+	<div>
+		<Group class="w-full h-full" />
+	</div>
 </div>
