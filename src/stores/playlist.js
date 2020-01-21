@@ -10,12 +10,15 @@ export const playlist = derived([currentScene, plays, scenes], ([$currentScene, 
 	}
 
 	const play = $plays.plays[$currentScene.playId];
+	const playIndex = play.scenes.indexOf($currentScene.sceneId);
 	const scene = $scenes.scenes[$currentScene.sceneId];
 
 	return {
 		playId: $currentScene.playId,
 		scene: {
 			name: scene.name
-		}
+		},
+		prevSceneId: play.scenes[playIndex - 1],
+		nextSceneId: play.scenes[playIndex + 1]
 	}
 });
