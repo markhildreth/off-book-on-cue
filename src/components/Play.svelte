@@ -1,7 +1,7 @@
 <script>
 	export let id;
 
-	import { plays, scenes } from "../stores";
+	import { plays, scenes, currentScene } from "../stores";
 	import { push } from "../stores/history";
 	import { selectScene } from "../stores/currentScene";
 	import { changeScene } from "../stores/playback";
@@ -10,7 +10,11 @@
 	$: play = $plays.plays[id];
 	$: sceneInfos = play.scenes.map(sceneId => {
 		const scene = $scenes.scenes[sceneId];
-		return { id: sceneId, name: scene.name };
+		return {
+			id: sceneId,
+			name: scene.name,
+			isCurrent: $currentScene && $currentScene.sceneId === sceneId
+		};
 	});
 
 	function sceneSelected(sceneId) {
@@ -21,7 +25,6 @@
 	function onRecordClicked() {
 		push("/play/record", { id });
 	}
-
 </script>
 
 <div class="relative w-full h-full">
@@ -33,7 +36,7 @@
 	{:else}
 	<ul class="text-md w-full h-full overflow-y-scroll">
 		{#each sceneInfos as scene (scene.id)}
-		<li on:click={() => sceneSelected(scene.id)} class="p-4 border-b-2 cursor-pointer">{scene.name}</li>
+		<li class="p-4 border-b-2 cursor-pointer" class:bg-blue-200={scene.isCurrent} on:click={() => sceneSelected(scene.id)}>{scene.name}</li>
 		{/each}
 	</ul>
 	{/if}
