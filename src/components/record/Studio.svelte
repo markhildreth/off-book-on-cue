@@ -13,9 +13,14 @@
 		return padNum(minutes) + ":" + padNum(seconds);
 	}
 
+	let isRecording = false;
 	let time;
-	$: isRecording = $recording.state === 'recording';
 	$: time = formatTimeFromSeconds(Math.floor($recording.elapsedMs / 1000));
+
+	function onStartRecording() {
+		startRecording();
+		isRecording = true;
+	}
 
 	function startUserLine(ev) {
 		if (isRecording) {
@@ -38,8 +43,8 @@
 			const sceneId = addScene({ name: $recording.name });
 			addSceneToPlay({ playId, sceneId });
 
-			// TODO: Need to save recording.
-			finishRecording();
+			finishRecording({ trackId: sceneId });
+			isRecording = false;
 			replace("/play", { id: $history.args.id });
 		}
 	}
@@ -69,7 +74,7 @@
 		<h3 class="text-4xl">{time}</h3>
 	</div>
 	{#if !isRecording}
-		<div on:click|preventDefault={startRecording} class="button button-lg button-red">Start Recording</div>
+		<div on:click|preventDefault={onStartRecording} class="button button-lg button-red">Start Recording</div>
 	{:else}
 		<div on:click|preventDefault={stopRecording} class="button button-lg button-red">Finish</div>
 	{/if}

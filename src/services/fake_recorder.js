@@ -30,8 +30,11 @@ export class FakeRecorder {
 		this._update();
 	}
 
-	finish() {
+	finish({ trackId }) {
 		this.recording = null;
+		this._trigger("finished", {
+			trackId
+		});
 	}
 
 	cancel() {

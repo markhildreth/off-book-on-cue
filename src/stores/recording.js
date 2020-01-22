@@ -25,9 +25,11 @@ export const setMyLine = isMyLine => {
 	exchange.push("recording.set_my_line", { isMyLine });
 };
 
-export const finishRecording = () => {
+export const finishRecording = ({ trackId }) => {
 	recording.set(defaultState);
-	exchange.push("recording.finish");
+	exchange.push("recording.finish", {
+		trackId
+	});
 };
 
 export const cancelRecording = () => {

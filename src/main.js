@@ -6,9 +6,11 @@ import * as stores from "./stores";
 import * as services from "./services";
 import { Backer } from "./backer";
 import { replace } from "./stores/history";
+import localForage from "localForage";
 
 window.get = get;
 window.stores = stores;
+window.localForage = localForage;
 
 const app = new App({
 	target: document.body

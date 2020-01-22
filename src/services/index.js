@@ -1,6 +1,7 @@
 import { Exchange } from "./exchange.js";
 import { FakeAudioPlayer } from "./audio_playback";
 import { FakeRecorder } from "./fake_recorder";
+import localForage from "localForage";
 
 export const exchange = new Exchange();
 
@@ -42,6 +43,10 @@ fakeRecorder.on("started", args => {
 	});
 });
 
+fakeRecorder.on("finished", async args => {
+	localForage.setItem(`track_${args.trackId}`, args.data);
+});
+
 exchange.subscribe("recording.start", args => {
 	fakeRecorder.start();
 });
@@ -51,7 +56,7 @@ exchange.subscribe("recording.set_my_line", args => {
 });
 
 exchange.subscribe("recording.finish", args => {
-	fakeRecorder.finish();
+	fakeRecorder.finish({ trackId: args.trackId });
 });
 
 exchange.subscribe("recording.cancel", args => {
