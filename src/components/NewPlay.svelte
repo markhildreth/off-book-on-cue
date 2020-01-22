@@ -11,7 +11,7 @@
 
 	const onSubmit = ev => {
 		const id = addPlay({ name: input.value });
-		push("/play", { id })();
+		push("/play", { id });
 	}
 </script>
 
