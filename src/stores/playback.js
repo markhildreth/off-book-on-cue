@@ -1,4 +1,5 @@
 import { ImmerStore } from "./base";
+import { exchange } from "../services";
 
 export const playback = new ImmerStore({
 	sceneId: null,
@@ -9,41 +10,23 @@ export const playback = new ImmerStore({
 });
 
 export const changeScene = ({ sceneId }) => {
-	playback.update(d => {
-		d.sceneId = sceneId;
-		d.isPlaying = true;
-		d.isUserLine = false;
-		d.elapsedMs = 0;
-		d.durationMs = 120000;
-	});
-	isFakePlaying = true;
-};
-
-let isFakePlaying = false;
-let lastUpdate = new Date();
-
-const updateFake = () => {
-	const newUpdate = new Date();
-	if (isFakePlaying) {
-		playback.update(d => {
-			d.elapsedMs += newUpdate - lastUpdate;
-			d.isUserLine = Math.floor(d.elapsedMs / 5000) % 2 === 1;
-		});
-	}
-	lastUpdate = newUpdate;
-};
-setInterval(updateFake, 100);
+	exchange.push("audio.load", { trackId: 0 });
+}
 
 export const pause = () => {
-	playback.update(d => {
-		d.isPlaying = false;
-	});
-	isFakePlaying = false;
+	exchange.push("audio.pause");
 }
 
 export const resume = () => {
-	playback.update(d => {
-		d.isPlaying = true;
-	});
-	isFakePlaying = true;
+	exchange.push("audio.resume");
 }
+
+exchange.subscribe("audio.update", args => {
+	playback.update(d => {
+		d.sceneId = args.sceneId;
+		d.isPlaying = args.isPlaying;
+		d.isUserLine = args.isUserLine;
+		d.elapsedMs = args.elapsedMs;
+		d.durationMs = args.durationMs;
+	});
+});

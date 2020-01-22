@@ -3,6 +3,7 @@ import "localforage";
 import { get } from "svelte/store";
 import App from "./components/App.svelte";
 import * as stores from "./stores";
+import * as services from "./services";
 import { Backer } from "./backer";
 import { replace } from "./stores/history";
 
