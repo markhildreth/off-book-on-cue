@@ -1,64 +1,65 @@
 import { Exchange } from "./exchange.js";
-import { FakeAudioPlayer } from "./audio_playback";
-import { FakeRecorder } from "./fake_recorder";
+import { TrackPlayer } from "./track_player";
+import { Recorder } from "./recorder";
 import localForage from "localForage";
 
 export const exchange = new Exchange();
 
 // Audio Player
-const fakePlayer = new FakeAudioPlayer();
-setInterval(fakePlayer.tick.bind(fakePlayer), 100);
+const trackPlayer = new TrackPlayer();
+setInterval(trackPlayer.tick.bind(trackPlayer), 100);
 
-fakePlayer.on("update", args => {
+trackPlayer.on("update", args => {
 	exchange.push("audio.update", args);
 });
 
-exchange.subscribe("audio.load", ({ trackId }) => {
-	fakePlayer.load({ trackId });
+exchange.subscribe("audio.load", async ({ trackId }) => {
+	const track = await localForage.getItem(`track_${trackId}`);
+	trackPlayer.load({ track });
 });
 
 exchange.subscribe("audio.pause", () => {
-	fakePlayer.pause()
+	trackPlayer.pause()
 });
 
 exchange.subscribe("audio.resume", () => {
-	fakePlayer.resume()
+	trackPlayer.resume()
 });
 
 // Recorder
-const fakeRecorder = new FakeRecorder();
-setInterval(fakeRecorder.tick.bind(fakeRecorder), 10);
+const recorder = new Recorder();
+setInterval(recorder.tick.bind(recorder), 10);
 
-fakeRecorder.on("update", args => {
+recorder.on("update", args => {
 	exchange.push("recording.update", {
 		elapsedMs: args.elapsedMs,
 		isMyLine: args.isMyLine
 	});
 });
 
-fakeRecorder.on("started", args => {
+recorder.on("started", args => {
 	exchange.push("recording.started", {
 		elapsedMs: args.elapsedMs,
 		isMyLine: args.isMyLine
 	});
 });
 
-fakeRecorder.on("finished", async args => {
+recorder.on("finished", async args => {
 	localForage.setItem(`track_${args.trackId}`, args.data);
 });
 
 exchange.subscribe("recording.start", args => {
-	fakeRecorder.start();
+	recorder.start();
 });
 
 exchange.subscribe("recording.set_my_line", args => {
-	fakeRecorder.setMyLine(args.isMyLine);
+	recorder.setMyLine(args.isMyLine);
 });
 
 exchange.subscribe("recording.finish", args => {
-	fakeRecorder.finish({ trackId: args.trackId });
+	recorder.finish({ trackId: args.trackId });
 });
 
 exchange.subscribe("recording.cancel", args => {
-	fakeRecorder.cancel();
+	recorder.cancel();
 });

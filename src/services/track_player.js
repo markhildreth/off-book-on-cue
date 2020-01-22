@@ -1,6 +1,6 @@
 import { EventSubscription } from "./event_subscription";
 
-export class FakeAudioPlayer {
+export class TrackPlayer {
 	constructor() {
 		this.track = null;
 		this.events = new EventSubscription();
@@ -13,20 +13,20 @@ export class FakeAudioPlayer {
 
 		const newUpdate = new Date();
 		if (this.track.isPlaying) {
-			this.track.elapsedMs += newUpdate - this.track.lastUpdate;
 			this._pushUpdate();
 		}
 		this.track.lastUpdate = newUpdate;
 	}
 
-	async load({ trackId }) {
-		const track = await localForage.getItem(`track_${trackId}`);
+	load({ track }) {
+		const url = URL.createObjectURL(track.blob);
+		const node = new Audio(url);
+
 		this.track = {
-			id: trackId,
+			node,
 			isPlaying: false,
-			elapsedMs: 0,
 			breaks: track.breaks,
-			durationMs: track.timeMs,
+			durationMs: track.durationMs,
 			lastUpdate: new Date()
 		}
 
@@ -37,21 +37,24 @@ export class FakeAudioPlayer {
 	pause() {
 		if (this.track == null) return;
 		this.track.isPlaying = false;
+		this.track.node.pause();
 		this._pushUpdate();
 	}
 
 	resume() {
 		if (this.track == null) return;
 		this.track.isPlaying = true;
+		this.track.node.play();
 		this._pushUpdate();
 	}
 
 	_pushUpdate() {
+		const elapsedMs = this.track.node.currentTime * 1000;
 		this._trigger("update", {
 			isPlaying: this.track.isPlaying,
-			elapsedMs: this.track.elapsedMs,
+			elapsedMs,
 			durationMs: this.track.durationMs,
-			isMyLine: this.track.breaks.findIndex(ms => ms > this.track.elapsedMs) % 2 == 1
+			isMyLine: this.track.breaks.findIndex(ms => ms > elapsedMs) % 2 == 1
 		});
 	}
 }
