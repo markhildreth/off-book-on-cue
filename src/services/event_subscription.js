@@ -11,8 +11,8 @@ export class EventSubscription {
 	}
 
 	trigger(eventName, args) {
-		const events = this.events[eventName] || NO_EVENTS;
-		for (const subscription of events) {
+		const subscriptions = this.events[eventName] || NO_SUBSCRIPTIONS;
+		for (const subscription of subscriptions) {
 			subscription(args);
 		}
 	}

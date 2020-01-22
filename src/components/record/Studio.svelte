@@ -15,7 +15,7 @@
 
 	let time;
 	$: isRecording = $recording.state === 'recording';
-	$: time = formatTimeFromSeconds(Math.floor($recording.timeMs / 1000));
+	$: time = formatTimeFromSeconds(Math.floor($recording.elapsedMs / 1000));
 
 	function startUserLine(ev) {
 		if (isRecording) {

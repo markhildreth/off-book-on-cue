@@ -4,7 +4,7 @@ import { exchange } from "../services";
 export const playback = new ImmerStore({
 	sceneId: null,
 	isPlaying: false,
-	isUserLine: false,
+	isMyLine: false,
 	elapsedMs: 0,
 	durationMs: 120000,
 });
@@ -25,7 +25,7 @@ exchange.subscribe("audio.update", args => {
 	playback.update(d => {
 		d.sceneId = args.sceneId;
 		d.isPlaying = args.isPlaying;
-		d.isUserLine = args.isUserLine;
+		d.isMyLine = args.isMyLine;
 		d.elapsedMs = args.elapsedMs;
 		d.durationMs = args.durationMs;
 	});

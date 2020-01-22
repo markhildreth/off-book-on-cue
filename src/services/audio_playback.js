@@ -2,7 +2,6 @@ import { EventSubscription } from "./event_subscription";
 
 export class FakeAudioPlayer {
 	constructor() {
-		this.lastUpdate = new Date();
 		this.track = null;
 		this.events = new EventSubscription();
 		this.on = this.events.on.bind(this.events);
@@ -10,22 +9,25 @@ export class FakeAudioPlayer {
 	}
 
 	tick() {
-		if (this.track == null || !this.track.isPlaying) return;
+		if (this.track == null) return;
 
 		const newUpdate = new Date();
-		this.track.elapsedMs += newUpdate - this.lastUpdate;
-		this.track.isUserLine = Math.floor(this.track.elapsedMs / 5000) % 2 === 1;
-		this.lastUpdate = newUpdate;
-		this._pushUpdate();
+		if (this.track.isPlaying) {
+			this.track.elapsedMs += newUpdate - this.track.lastUpdate;
+			this.track.isMyLine = Math.floor(this.track.elapsedMs / 5000) % 2 === 1;
+			this._pushUpdate();
+		}
+		this.track.lastUpdate = newUpdate;
 	}
 
 	load({ trackId }) {
 		this.track = {
 			id: trackId,
 			isPlaying: false,
-			isUserLine: false,
+			isMyLine: false,
 			elapsedMs: 0,
-			durationMs: 120000
+			durationMs: 120000,
+			lastUpdate: new Date()
 		}
 		this._pushUpdate();
 	}
@@ -45,7 +47,7 @@ export class FakeAudioPlayer {
 	_pushUpdate() {
 		this._trigger("update", {
 			isPlaying: this.track.isPlaying,
-			isUserLine: this.track.isUserLine,
+			isMyLine: this.track.isMyLine,
 			elapsedMs: this.track.elapsedMs,
 			durationMs: this.track.durationMs
 		});

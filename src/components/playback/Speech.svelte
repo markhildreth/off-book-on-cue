@@ -2,7 +2,7 @@
 	import SpeechBubble from "../icons/SpeechBubble.svelte";
 	import User from "../icons/User.svelte";
 	import Group from "../icons/Group.svelte";
-	export let isUserLine;
+	export let isMyLine;
 	export let isPlaying;
 
 </script>
@@ -34,7 +34,7 @@
 		<User class="w-full h-full"/>
 	</div>
 	<div class:invisible={!isPlaying}>
-		<SpeechBubble class="w-full h-full {isUserLine ? "pulse" : "flip-y-axis"}"/>
+		<SpeechBubble class="w-full h-full {isMyLine ? "pulse" : "flip-y-axis"}"/>
 	</div>
 	<div>
 		<Group class="w-full h-full" />

@@ -1,10 +1,11 @@
 import { ImmerStore } from "./base";
+import { exchange } from "../services";
 
 const defaultState = {
 	state: "initial",
 	playId: null,
 	name: null,
-	timeMs: 0,
+	elapsedMs: 0,
 	isMyLine: false,
 };
 export const recording = new ImmerStore(defaultState);
@@ -17,42 +18,34 @@ export const nameScene = ({ name }) => {
 };
 
 export const startRecording = () => {
-	fakeRecordingStarted = new Date();
-	fakeRecordingInterval = setInterval(updateFake, 100);
-
-	recording.update(d => {
-		d.state = "recording";
-	});
+	exchange.push("recording.start");
 }
 
-// TODO: Actually intereact with recorder.
-let fakeRecordingStarted = null;
-let fakeRecordingInterval = null;
-
-const updateFake = () => {
-	recording.update(d => {
-		d.timeMs = new Date() - fakeRecordingStarted;
-	});
-};
-
-export const setMyLine = b => {
-	if (fakeRecordingStarted != null) {
-		recording.update(d => {
-			d.isMyLine = b;
-		});
-	}
+export const setMyLine = isMyLine => {
+	exchange.push("recording.set_my_line", { isMyLine });
 };
 
 export const finishRecording = () => {
-	if (fakeRecordingStarted != null) {
-		recording.set(defaultState);
-		clearInterval(fakeRecordingInterval);
-	}
+	recording.set(defaultState);
+	exchange.push("recording.finish");
 };
 
 export const cancelRecording = () => {
-	if (fakeRecordingStarted != null) {
-		recording.set(defaultState);
-		clearInterval(fakeRecordingInterval);
-	}
+	recording.set(defaultState);
+	exchange.push("recording.cancel");
 };
+
+exchange.subscribe("recording.started", args => {
+	recording.update(d => {
+		d.state = "recording";
+		d.elapsedMs = args.elapsedMs;
+		d.isMyLine = args.isMyLine;
+	});
+});
+
+exchange.subscribe("recording.update", args => {
+	recording.update(d => {
+		d.elapsedMs = args.elapsedMs;
+		d.isMyLine = args.isMyLine;
+	});
+});
