@@ -14,21 +14,23 @@ export class FakeAudioPlayer {
 		const newUpdate = new Date();
 		if (this.track.isPlaying) {
 			this.track.elapsedMs += newUpdate - this.track.lastUpdate;
-			this.track.isMyLine = Math.floor(this.track.elapsedMs / 5000) % 2 === 1;
 			this._pushUpdate();
 		}
 		this.track.lastUpdate = newUpdate;
 	}
 
-	load({ trackId }) {
+	async load({ trackId }) {
+		const track = await localForage.getItem(`track_${trackId}`);
 		this.track = {
 			id: trackId,
 			isPlaying: false,
-			isMyLine: false,
 			elapsedMs: 0,
-			durationMs: 120000,
+			breaks: track.breaks,
+			durationMs: track.timeMs,
 			lastUpdate: new Date()
 		}
+
+		this.track.breaks = track.breaks;
 		this._pushUpdate();
 	}
 
@@ -47,9 +49,9 @@ export class FakeAudioPlayer {
 	_pushUpdate() {
 		this._trigger("update", {
 			isPlaying: this.track.isPlaying,
-			isMyLine: this.track.isMyLine,
 			elapsedMs: this.track.elapsedMs,
-			durationMs: this.track.durationMs
+			durationMs: this.track.durationMs,
+			isMyLine: this.track.breaks.findIndex(ms => ms > this.track.elapsedMs) % 2 == 1
 		});
 	}
 }

@@ -10,7 +10,7 @@ export const playback = new ImmerStore({
 });
 
 export const changeScene = ({ sceneId }) => {
-	exchange.push("audio.load", { trackId: 0 });
+	exchange.push("audio.load", { trackId: sceneId });
 }
 
 export const pause = () => {

@@ -17,7 +17,8 @@ export class FakeRecorder {
 	start() {
 		this.recording = {
 			startTime: new Date(),
-			isMyLine: false
+			isMyLine: false,
+			breaks: []
 		};
 		this._trigger("started", {
 			elapsedMs: 0,
@@ -26,14 +27,23 @@ export class FakeRecorder {
 	}
 
 	setMyLine(isMyLine) {
+		if (this.recording.isMyLine !== isMyLine) {
+			this.recording.breaks.push(new Date() - this.recording.startTime);
+		}
 		this.recording.isMyLine = isMyLine;
 		this._update();
 	}
 
 	finish({ trackId }) {
+		const timeMs = new Date() - this.recording.startTime;
+		const breaks = this.recording.breaks;
 		this.recording = null;
 		this._trigger("finished", {
-			trackId
+			trackId,
+			data: {
+				breaks,
+				timeMs
+			}
 		});
 	}
 
