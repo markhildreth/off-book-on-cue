@@ -15,14 +15,18 @@
 <style>
 </style>
 
-<div class="flex flex-col items-center h-full">
-	<div on:click={shrink} class="h-16 w-full flex justify-center items-center cursor-pointer px-4 border-b">
+<div class="w-full h-full flex flex-col">
+	<div on:click={shrink} class="w-full flex justify-center items-center h-16 cursor-pointer border-b" style="min-height: 4rem;">
 		<h2 class="text-center">{$playlist.scene.name}</h2>
 	</div>
-	<OptionSliders />
-	<div class="flex-grow">
-		<Speech isPlaying={$playback.isPlaying} isMyLine={$playback.isMyLine} />
+	<div class="flex-grow overflow-scroll">
+		<div class="flex flex-col container m-auto px-4 h-full">
+			<OptionSliders />
+			<div class="flex-grow">
+				<Speech isPlaying={$playback.isPlaying} isMyLine={$playback.isMyLine} />
+			</div>
+			<Progress elapsedMs={$playback.elapsedMs} durationMs={$playback.durationMs}/>
+			<Controls playId={$playlist.playId} isPlaying={$playback.isPlaying} prevSceneId={$playlist.prevSceneId} nextSceneId={$playlist.nextSceneId} />
+		</div>
 	</div>
-	<Progress elapsedMs={$playback.elapsedMs} durationMs={$playback.durationMs}/>
-	<Controls playId={$playlist.playId} isPlaying={$playback.isPlaying} prevSceneId={$playlist.prevSceneId} nextSceneId={$playlist.nextSceneId} />
 </div>

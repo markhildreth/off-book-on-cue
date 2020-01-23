@@ -9,7 +9,10 @@
 
 <style>
 	.speech {
+		height: 100%;
 		display: grid;
+		justify-items: center;
+		align-items: center;
 		grid-template-areas:
 			".      balloon   .   "
 			"person balloon people"
@@ -29,14 +32,14 @@
 	}
 </style>
 
-<div class="speech mx-4">
+<div class="speech">
 	<div>
-		<User class="w-full h-full"/>
+		<User class="w-16 sm:w-24 md:w-32 lg:w-40" />
 	</div>
 	<div class:invisible={!isPlaying}>
-		<SpeechBubble class="w-full h-full {isMyLine ? "pulse" : "flip-y-axis"}"/>
+		<SpeechBubble class="w-16 sm:w-24 md:w-32 lg:w-40 {isMyLine ? "pulse" : "flip-y-axis"}"/>
 	</div>
 	<div>
-		<Group class="w-full h-full" />
+		<Group class="w-16 sm:w-24 md:w-32 lg:w-40"/>
 	</div>
 </div>
