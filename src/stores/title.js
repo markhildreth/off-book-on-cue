@@ -4,7 +4,7 @@ import { plays } from "./plays";
 
 export const title = derived([appState, plays], ([$appState, $play]) => {
 	if ($appState.screen === "play") {
-		const play = $play.plays[$appState.id];
+		const play = $play.plays[$appState.playId];
 		return play.name;
 	}
 

@@ -7,7 +7,7 @@
 	import { pause, resume } from "../stores/playback";
 
 	function openFullPlayback() {
-		push("/play/playback", { id: $playlist.playId });
+		push("/play/playback", { playId: $playlist.playId });
 	}
 
 	function onPause() {

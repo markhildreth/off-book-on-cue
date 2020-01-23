@@ -35,7 +35,7 @@ const start = async () => {
 	const history = get(stores.history);
 	const playlist = get(stores.playlist);
 	if (history.path === "/play/playback") {
-		replace("/play", { id: history.args.id });
+		replace("/play", { playId: history.args.playId });
 	}
 	stores.loading.set(false);
 };

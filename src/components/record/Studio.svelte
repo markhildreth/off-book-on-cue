@@ -39,13 +39,13 @@
 	function stopRecording() {
 		if (isRecording) {
 			const name = $recording.name;
-			const playId = $history.args.id;
+			const playId = $history.args.playId;
 			const sceneId = addScene({ name: $recording.name });
 			addSceneToPlay({ playId, sceneId });
 
 			finishRecording({ trackId: sceneId });
 			isRecording = false;
-			replace("/play", { id: $history.args.id });
+			replace("/play", { playId: $history.args.playId });
 		}
 	}
 

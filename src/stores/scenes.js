@@ -11,3 +11,9 @@ export const addScene = ({ name }) => {
 	});
 	return id;
 };
+
+export const editScene = ({ sceneId, name }) => {
+	scenes.update(d => {
+		d.scenes[sceneId].name = name;
+	});
+};

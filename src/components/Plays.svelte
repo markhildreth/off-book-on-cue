@@ -4,8 +4,8 @@
 
 	$: ids = Object.keys($plays.plays);
 
-	function onPlayClicked(id) {
-		push("/play", { id });
+	function onPlayClicked(playId) {
+		push("/play", { playId });
 	}
 
 	function onNewPlayClicked() {

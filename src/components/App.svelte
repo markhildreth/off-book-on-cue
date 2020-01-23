@@ -11,6 +11,7 @@
 	import Record from "./Record.svelte";
 	import PlaybackBar from "./PlaybackBar.svelte";
 	import Playback from "./Playback.svelte";
+	import EditScene from "./EditScene.svelte";
 
 	$: screen = $appState.screen;
 	$: showPlaybackFooter = $currentScene != null && screen !== "playback";
@@ -34,11 +35,13 @@
 	{:else if screen === "plays"}
 	<Plays />
 	{:else if screen === "play"}
-	<Play id={$appState.id} />
+	<Play playId={$appState.playId} />
 	{:else if screen === "record"}
-	<Record id={$appState.id} />
+	<Record playId={$appState.playId} />
 	{:else if screen === "playback" }
 	<Playback />
+	{:else if screen === "edit_scene" }
+	<EditScene playId={$appState.playId} sceneId={$appState.sceneId} />
 	{:else if screen === "error" }
 	<Error message={$appState.message} />
 	{:else}

@@ -1,6 +1,7 @@
 import { loading } from "./loading";
 import { history } from "./history";
 import { plays } from "./plays";
+import { scenes } from "./scenes";
 import { get, derived } from "svelte/store";
 
 const lookup = {
@@ -30,27 +31,27 @@ export const appState = derived(
 		}
 
 		if (path === "/play") {
-			const id = parseInt(args.id);
+			const playId = parseInt(args.playId);
 			const knownPlays = get(plays).plays;
-			if (knownPlays[id]) {
-				return { screen: "play", id };
+			if (knownPlays[playId]) {
+				return { screen: "play", playId };
 			} else {
 				return {
 					screen: "error",
-					message: `Could not find play with id "${id}"`
+					message: `Could not find play with id "${playId}"`
 				};
 			}
 		}
 
 		if (path === "/play/record") {
-			const id = parseInt(args.id);
+			const playId = parseInt(args.playId);
 			const knownPlays = get(plays).plays;
-			if (knownPlays[id]) {
-				return { screen: "record", id };
+			if (knownPlays[playId]) {
+				return { screen: "record", playId };
 			} else {
 				return {
 					screen: "error",
-					message: `Could not find play with id "${id}"`
+					message: `Could not find play with id "${playId}"`
 				};
 			}
 		}
@@ -58,7 +59,27 @@ export const appState = derived(
 		if (path === "/play/playback") {
 			return {
 				screen: "playback",
-				id: parseInt(args.id)
+				playId: parseInt(args.playId)
+			}
+		}
+
+		if (path === "/play/scene/edit") {
+			const playId = parseInt(args.playId);
+			const sceneId = parseInt(args.sceneId);
+
+			const knownPlays = get(plays).plays;
+			const knownScenes = get(scenes).scenes;
+			if (knownPlays[playId] && knownScenes[sceneId]) {
+				return {
+					screen: "edit_scene",
+					playId,
+					sceneId,
+				};
+			} else {
+				return {
+					screen: "error",
+					message: `Could not find scene from play ${playId}, scene ${sceneId}`
+				};
 			}
 		}
 		return { screen: "error" };
