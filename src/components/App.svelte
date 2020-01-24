@@ -41,7 +41,7 @@
 	{:else if screen === "playback" }
 	<Playback />
 	{:else if screen === "edit_scene" }
-	<EditScene playId={$appState.playId} sceneId={$appState.sceneId} />
+	<EditScene sceneId={$appState.sceneId} />
 	{:else if screen === "error" }
 	<Error message={$appState.message} />
 	{:else}

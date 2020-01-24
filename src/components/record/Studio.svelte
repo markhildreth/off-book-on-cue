@@ -4,7 +4,7 @@
 	import { startRecording, setMyLine, finishRecording, cancelRecording } from "../../stores/recording";
 	import { addScene } from "../../stores/scenes";
 	import { addSceneToPlay } from "../../stores/plays";
-	import { replace } from "../../stores/history";
+	import { back } from "../../stores/history";
 
 	const padNum = n => n < 10 ? "0" + n : n.toString();
 	const formatTimeFromSeconds = sec => {
@@ -45,7 +45,7 @@
 
 			finishRecording({ trackId: sceneId });
 			isRecording = false;
-			replace("/play", { playId: $history.args.playId });
+			back();
 		}
 	}
 
