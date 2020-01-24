@@ -30,6 +30,10 @@ exchange.subscribe("audio.resume", () => {
 const recorder = new Recorder();
 setInterval(recorder.tick.bind(recorder), 10);
 
+recorder.on("initialized", args => {
+	exchange.push("recording.initialized");
+});
+
 recorder.on("update", args => {
 	exchange.push("recording.update", {
 		elapsedMs: args.elapsedMs,
@@ -46,6 +50,10 @@ recorder.on("started", args => {
 
 recorder.on("finished", async args => {
 	localForage.setItem(`track_${args.trackId}`, args.data);
+});
+
+exchange.subscribe("recording.initialize", args => {
+	recorder.initialize();
 });
 
 exchange.subscribe("recording.start", args => {

@@ -2,6 +2,7 @@ import { EventSubscription } from "./event_subscription";
 
 const MIME_TYPE = 'audio/webm'
 
+// TODO: This could probably be refactored into a nice FSM.
 export class Recorder {
 	constructor() {
 		this.recording = null;
@@ -12,22 +13,29 @@ export class Recorder {
 	}
 
 	tick() {
-		if (this.recording == null) return;
+		if (this.recording == null || this.recording.state !== "started") return;
 		this._update();
 	}
 
-	async start() {
+	async initialize() {
 		const stream = await navigator.mediaDevices.getUserMedia ({ audio: true });
 		const options = { mimeType: MIME_TYPE };
-		const recorder = new MediaRecorder(stream, options);
-		recorder.start();
-
 		this.recording = {
-			startTime: new Date(),
+			state: "ready",
+			recorder: new MediaRecorder(stream, options),
 			isMyLine: false,
 			breaks: [],
-			recorder
 		};
+		this._trigger("initialized");
+	}
+
+	async start() {
+		if (this.recording == null || this.recording.state !== "ready") return;
+
+		this.recording.recorder.start();
+		this.recording.startTime = new Date();
+		this.recording.state = "started";
+
 		this._trigger("started", {
 			elapsedMs: 0,
 			isMyLine: false

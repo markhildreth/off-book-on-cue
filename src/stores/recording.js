@@ -1,20 +1,16 @@
 import { ImmerStore } from "./base";
 import { exchange } from "../services";
 
-const defaultState = {
-	state: "initial",
-	playId: null,
-	name: null,
-	elapsedMs: 0,
-	isMyLine: false,
-};
-export const recording = new ImmerStore(defaultState);
+export const recording = new ImmerStore(null);
 
 export const nameScene = ({ name }) => {
-	recording.update(d => {
-		d.name = name;
-		d.state = "studio";
+	recording.set({
+		state: "initializing",
+		name,
+		elapsedMs: 0,
+		isMyLine: false
 	});
+	exchange.push("recording.initialize");
 };
 
 export const startRecording = () => {
@@ -26,7 +22,7 @@ export const setMyLine = isMyLine => {
 };
 
 export const finishRecording = ({ trackId }) => {
-	recording.set(defaultState);
+	recording.set(null);
 	exchange.push("recording.finish", {
 		trackId
 	});
@@ -36,6 +32,12 @@ export const cancelRecording = () => {
 	recording.set(defaultState);
 	exchange.push("recording.cancel");
 };
+
+exchange.subscribe("recording.initialized", args => {
+	recording.update(d => {
+		d.state = "studio";
+	});
+});
 
 exchange.subscribe("recording.started", args => {
 	recording.update(d => {
@@ -47,7 +49,9 @@ exchange.subscribe("recording.started", args => {
 
 exchange.subscribe("recording.update", args => {
 	recording.update(d => {
-		d.elapsedMs = args.elapsedMs;
-		d.isMyLine = args.isMyLine;
+		if (d != null) {
+			d.elapsedMs = args.elapsedMs;
+			d.isMyLine = args.isMyLine;
+		}
 	});
 });
