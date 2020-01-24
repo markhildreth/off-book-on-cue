@@ -17,3 +17,9 @@ export const editScene = ({ sceneId, name }) => {
 		d.scenes[sceneId].name = name;
 	});
 };
+
+export const deleteScene = ({ sceneId }) => {
+	scenes.update(d => {
+		delete d.scenes[sceneId];
+	});
+};

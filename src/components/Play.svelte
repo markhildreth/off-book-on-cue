@@ -1,10 +1,14 @@
 <script>
 	export let playId;
+	export let deleteSceneId = null;
 
+	import Modal from "./Modal.svelte";
 	import { plays, scenes, currentScene } from "../stores";
-	import { push } from "../stores/history";
-	import { selectScene } from "../stores/currentScene";
+	import { push, back } from "../stores/history";
+	import { selectScene, clearSelectedScene } from "../stores/currentScene";
 	import { changeScene } from "../stores/playback";
+	import { deleteScene } from "../stores/scenes";
+	import { deleteSceneFromPlay } from "../stores/plays";
 	import Microphone from "./icons/Microphone";
 
 	$: play = $plays.plays[playId];
@@ -17,6 +21,8 @@
 		};
 	});
 
+	$: sceneToDelete = $scenes.scenes[deleteSceneId];
+
 	function sceneSelected(sceneId) {
 		selectScene({ playId, sceneId });
 		changeScene({ sceneId });
@@ -28,6 +34,19 @@
 
 	function onEditSceneClicked(sceneId) {
 		push("/play/scene/edit", { playId, sceneId });
+	}
+
+	function onDeleteSceneClicked(sceneId) {
+		console.log("Delete " + sceneId);
+		push("/play", { playId, deleteSceneId: sceneId });
+	}
+
+	function onDeleteSceneConfirm() {
+		back();
+		clearSelectedScene();
+		deleteSceneFromPlay({ playId, sceneId: deleteSceneId });
+		deleteScene({ sceneId: deleteSceneId });
+		localForage.removeItem(`track_${deleteSceneId}`);
 	}
 </script>
 
@@ -54,3 +73,13 @@
 		<Microphone class="h-8 text-red-600 fill-current" />
 	</li>
 </ul>
+
+{#if sceneToDelete}
+	<Modal onClose={back}>
+		<p class="text-md">Are you sure you wish to delete scene '{sceneToDelete.name}'?</p>
+		<div class="flex justify-end items-center mt-4">
+			<button on:click={onDeleteSceneConfirm} class="button button-red">Delete</button>
+			<button on:click={back} class="ml-4 button">Cancel</button>
+		</div>
+	</Modal>
+{/if}

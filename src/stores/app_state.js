@@ -33,8 +33,9 @@ export const appState = derived(
 		if (path === "/play") {
 			const playId = parseInt(args.playId);
 			const knownPlays = get(plays).plays;
+			const deleteSceneId = args.deleteSceneId ? parseInt(args.deleteSceneId) : null;
 			if (knownPlays[playId]) {
-				return { screen: "play", playId };
+				return { screen: "play", playId, deleteSceneId };
 			} else {
 				return {
 					screen: "error",

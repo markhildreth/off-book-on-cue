@@ -35,7 +35,7 @@
 	{:else if screen === "plays"}
 	<Plays />
 	{:else if screen === "play"}
-	<Play playId={$appState.playId} />
+	<Play playId={$appState.playId} deleteSceneId={$appState.deleteSceneId} />
 	{:else if screen === "record"}
 	<Record playId={$appState.playId} />
 	{:else if screen === "playback" }

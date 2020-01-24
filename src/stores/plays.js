@@ -18,3 +18,10 @@ export const addSceneToPlay = ({ playId, sceneId }) => {
 		d.plays[playId].scenes.push(sceneId);
 	});
 };
+
+export const deleteSceneFromPlay = ({ playId, sceneId }) => {
+	plays.update(d => {
+		const play = d.plays[playId];
+		play.scenes = play.scenes.filter(id => id !== sceneId);
+	});
+};
