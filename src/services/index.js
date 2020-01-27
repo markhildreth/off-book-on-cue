@@ -13,6 +13,10 @@ trackPlayer.on("update", args => {
 	exchange.push("audio.update", args);
 });
 
+trackPlayer.on("options_update", args => {
+	exchange.push("audio.options_update", args);
+});
+
 exchange.subscribe("audio.load", async ({ trackId }) => {
 	const track = await localForage.getItem(`track_${trackId}`);
 	trackPlayer.load({ track });
@@ -24,6 +28,14 @@ exchange.subscribe("audio.pause", () => {
 
 exchange.subscribe("audio.resume", () => {
 	trackPlayer.resume()
+});
+
+exchange.subscribe("audio.change_user_line_volume", args => {
+	trackPlayer.changeUserLineVolume(args.newVolume);
+});
+
+exchange.subscribe("audio.change_speed", args => {
+	trackPlayer.changeSpeed(args.newSpeed);
 });
 
 // Recorder

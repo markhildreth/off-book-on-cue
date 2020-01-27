@@ -8,5 +8,6 @@ import { recording } from "./recording";
 import { currentScene } from "./currentScene";
 import { playlist } from "./playlist";
 import { playback } from "./playback";
+import { playbackOptions } from "./playback_options";
 
-export { plays, scenes, appState, history, loading, title, recording, currentScene, playlist, playback };
+export { plays, scenes, appState, history, loading, title, recording, currentScene, playlist, playback, playbackOptions};
