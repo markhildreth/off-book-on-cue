@@ -30,10 +30,23 @@ export class TrackPlayer {
 		this.track.lastUpdate = newUpdate;
 	}
 
-	load({ track }) {
+	load({ track, autoPlay }) {
+		if (this.track) {
+			this.track.node.pause();
+			this.track = null;
+		}
+
 		const url = URL.createObjectURL(track.blob);
 		const node = new Audio(url);
 		node.playbackRate = this.playbackOptions.speed;
+		node.addEventListener('ended', e => {
+			if (this.track) {
+				this.track.isPlaying = false;
+			}
+			this.track.elapsedMs = this.track.durationMs;
+			this._pushUpdate();
+			this._trigger('ended');
+		});
 
 		this.track = {
 			node,
@@ -45,8 +58,11 @@ export class TrackPlayer {
 			lastUpdate: new Date()
 		}
 
-		this.track.breaks = track.breaks;
-		this._pushUpdate();
+		if (autoPlay) {
+			this.resume();
+		} else {
+			this.pause();
+		}
 		this._pushOptionsUpdate();
 	}
 

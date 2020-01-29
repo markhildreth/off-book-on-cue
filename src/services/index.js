@@ -17,9 +17,13 @@ trackPlayer.on("options_update", args => {
 	exchange.push("audio.options_update", args);
 });
 
-exchange.subscribe("audio.load", async ({ trackId }) => {
+trackPlayer.on("ended", args => {
+	exchange.push("audio.ended", args);
+});
+
+exchange.subscribe("audio.load", async ({ trackId, autoPlay }) => {
 	const track = await localForage.getItem(`track_${trackId}`);
-	trackPlayer.load({ track });
+	trackPlayer.load({ track, autoPlay });
 });
 
 exchange.subscribe("audio.pause", () => {

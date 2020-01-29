@@ -1,5 +1,8 @@
+import { get } from "svelte/store";
 import { ImmerStore } from "./base";
+import { playlist } from "./playlist";
 import { exchange } from "../services";
+import { selectScene } from "./currentScene";
 
 export const playback = new ImmerStore({
 	sceneId: null,
@@ -9,8 +12,8 @@ export const playback = new ImmerStore({
 	durationMs: 120000,
 });
 
-export const changeScene = ({ sceneId }) => {
-	exchange.push("audio.load", { trackId: sceneId });
+export const changeScene = ({ sceneId, autoPlay = false }) => {
+	exchange.push("audio.load", { trackId: sceneId, autoPlay });
 }
 
 export const pause = () => {
@@ -29,4 +32,15 @@ exchange.subscribe("audio.update", args => {
 		d.elapsedMs = args.elapsedMs;
 		d.durationMs = args.durationMs;
 	});
+});
+
+exchange.subscribe("audio.ended", args => {
+	const pl = get(playlist);
+	if (pl == null) return;
+
+	const sceneId = pl.nextSceneId;
+	if (sceneId != null) {
+		selectScene({ playId: pl.playId, sceneId });
+		changeScene({ sceneId, autoPlay: true });
+	}
 });
