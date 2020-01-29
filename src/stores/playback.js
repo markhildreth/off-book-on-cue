@@ -3,6 +3,7 @@ import { ImmerStore } from "./base";
 import { playlist } from "./playlist";
 import { exchange } from "../services";
 import { selectScene } from "./currentScene";
+import { playbackOptions } from "./playback_options";
 
 export const playback = new ImmerStore({
 	sceneId: null,
@@ -36,11 +37,16 @@ exchange.subscribe("audio.update", args => {
 
 exchange.subscribe("audio.ended", args => {
 	const pl = get(playlist);
+	const options = get(playbackOptions);
 	if (pl == null) return;
 
-	const sceneId = pl.nextSceneId;
-	if (sceneId != null) {
-		selectScene({ playId: pl.playId, sceneId });
-		changeScene({ sceneId, autoPlay: true });
+	if (options.sceneRepeat) {
+		resume();
+	} else {
+		const sceneId = pl.nextSceneId;
+		if (sceneId != null) {
+			selectScene({ playId: pl.playId, sceneId });
+			changeScene({ sceneId, autoPlay: true });
+		}
 	}
 });
