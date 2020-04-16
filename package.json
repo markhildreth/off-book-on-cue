@@ -4,6 +4,10 @@
 	"description": "Line Memorization App",
 	"main": "./src/main.js",
 	"author": "Mark Hildreth",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/markhildreth/line_memorization"
+	},
 	"license": "MIT",
 	"private": false,
 	"scripts": {
