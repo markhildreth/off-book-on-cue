@@ -13,7 +13,7 @@ window.stores = stores;
 window.localForage = localForage;
 
 const app = new App({
-	target: document.body
+	target: document.getElementById('main')
 });
 
 export default app;
