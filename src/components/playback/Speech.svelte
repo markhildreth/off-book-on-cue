@@ -7,39 +7,16 @@
 
 </script>
 
-<style>
-	.speech {
-		height: 100%;
-		display: grid;
-		justify-items: center;
-		align-items: center;
-		grid-template-areas:
-			".      balloon   .   "
-			"person balloon people"
-			"person    .    people";
-	}
-
-	.speech > :nth-child(1) {
-		grid-area: person;
-	}
-
-	.speech > :nth-child(2) {
-		grid-area: balloon;
-	}
-
-	.speech > :nth-child(3) {
-		grid-area: people;
-	}
-</style>
-
-<div class="speech">
-	<div>
-		<User class="w-16 sm:w-24 md:w-32 lg:w-40" />
+<div class="flex flex-grow">
+</div>
+<div class="speech flex h-full">
+	<div class="w-full self-end">
+		<User class="" />
 	</div>
-	<div class:invisible={!isPlaying}>
-		<SpeechBubble class="w-16 sm:w-24 md:w-32 lg:w-40 {isMyLine ? "pulse" : "flip-y-axis"}"/>
+	<div class="w-2/3 md:w-full self-start" class:invisible={!isPlaying}>
+		<SpeechBubble class="{isMyLine ? "pulse" : "flip-y-axis"}"/>
 	</div>
-	<div>
-		<Group class="w-16 sm:w-24 md:w-32 lg:w-40"/>
+	<div class="w-full self-end">
+		<Group class=""/>
 	</div>
 </div>
