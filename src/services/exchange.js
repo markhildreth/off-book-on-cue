@@ -4,7 +4,7 @@ export class Exchange {
 	}
 
 	push(queueName, args={}) {
-		console.info("[" + queueName + "]", args);
+		// console.info("[" + queueName + "]", args);
 		Object.freeze(args);
 		const subscriptions = this.subscriptions[queueName];
 

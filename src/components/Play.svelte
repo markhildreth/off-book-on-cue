@@ -37,7 +37,6 @@
 	}
 
 	function onDeleteSceneClicked(sceneId) {
-		console.log("Delete " + sceneId);
 		push("/play", { playId, deleteSceneId: sceneId });
 	}
 
