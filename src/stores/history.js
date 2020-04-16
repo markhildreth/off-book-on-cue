@@ -1,7 +1,8 @@
 import { writable } from "svelte/store";
 
 const buildLocation = (path, args) => {
-	return path + "?" + new URLSearchParams(args).toString();
+	const queryStr = Object.keys(args).length > 0 ? "?" + new URLSearchParams(args).toString() : "";
+	return path + queryStr;
 }
 
 const parseLocation = (location) => {
