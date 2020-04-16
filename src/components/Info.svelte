@@ -7,6 +7,6 @@
 	<h2 class="mt-2 text-xl">Attribution and Thanks</h2>
 	<ul class="list-disc pl-4">
 		<li>Many icons used from <a class="underline" href="https://www.useiconic.com/open">Open Iconic — www.useiconic.com/open</a></li>
-		<li>Sock and Buskin Icon made by <a class="underline" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a class="underline" href="https://www.flaticon.com">www.flaticon.com</a></li>
+		<li><a class="underline" href="https://www.flaticon.com/free-icon/theater_1778557">Sock and Buskin Icon</a> made by <a class="underline" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a class="underline" href="https://www.flaticon.com">www.flaticon.com</a></li>
 	</ul>
 </div>
