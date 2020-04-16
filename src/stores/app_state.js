@@ -6,7 +6,7 @@ import { get, derived } from "svelte/store";
 
 const lookup = {
 	"/how": { screen: "how" },
-	"/new_play": { screen: "new_play" }
+	"/new_play": { screen: "new_play" },
 };
 
 export const appState = derived(
@@ -28,6 +28,11 @@ export const appState = derived(
 			} else {
 				return { screen: "plays" };
 			}
+		}
+
+		if (path === "/delete_plays") {
+			const deletePlayId = args.deletePlayId ? parseInt(args.deletePlayId) : null;
+			return { screen: "delete_plays", deletePlayId };
 		}
 
 		if (path === "/play") {

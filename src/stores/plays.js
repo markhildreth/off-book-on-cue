@@ -25,3 +25,9 @@ export const deleteSceneFromPlay = ({ playId, sceneId }) => {
 		play.scenes = play.scenes.filter(id => id !== sceneId);
 	});
 };
+
+export const deletePlay = ({ playId }) => {
+  plays.update(d => {
+    delete d.plays[playId];
+  });
+}

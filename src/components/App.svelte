@@ -6,6 +6,7 @@
 	import How from "./How.svelte";
 	import Play from "./Play.svelte";
 	import Plays from "./Plays.svelte";
+	import DeletePlays from "./DeletePlays.svelte";
 	import Error from "./Error.svelte";
 	import NewPlay from "./NewPlay.svelte";
 	import Record from "./Record.svelte";
@@ -28,6 +29,8 @@
 	<Loading />
 	{:else if screen === "landing"}
 	<Landing />
+	{:else if screen === "delete_plays"}
+	<DeletePlays deletePlayId={$appState.deletePlayId} />
 	{:else if screen === "how"}
 	<How />
 	{:else if screen === "new_play"}
