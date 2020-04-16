@@ -1,7 +1,7 @@
 import { Exchange } from "./exchange.js";
 import { TrackPlayer } from "./track_player";
 import { Recorder } from "./recorder";
-import localForage from "localForage";
+import localForage from "localforage";
 
 export const exchange = new Exchange();
 
