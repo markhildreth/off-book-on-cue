@@ -21,9 +21,9 @@
 			clearSelectedScene();
 		}
 
-		playToDelete.scenes.forEach(s => {
-			deleteScene({ sceneId: s.id });
-			localForage.removeItem(`track_${s.id}`);
+		playToDelete.scenes.forEach(sceneId => {
+			deleteScene({ sceneId });
+			localForage.removeItem(`track_${sceneId}`);
 		});
 		deletePlay({ playId });
 		replace("/");
