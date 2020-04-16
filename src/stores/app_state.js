@@ -5,6 +5,7 @@ import { scenes } from "./scenes";
 import { get, derived } from "svelte/store";
 
 const lookup = {
+	"/info": { screen: "info" },
 	"/how": { screen: "how" },
 	"/new_play": { screen: "new_play" },
 };

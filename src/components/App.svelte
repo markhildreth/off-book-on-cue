@@ -4,6 +4,7 @@
 	import Header from "./Header.svelte";
 	import Landing from "./Landing.svelte";
 	import How from "./How.svelte";
+	import Info from "./Info.svelte";
 	import Play from "./Play.svelte";
 	import Plays from "./Plays.svelte";
 	import DeletePlays from "./DeletePlays.svelte";
@@ -19,7 +20,7 @@
 </script>
 
 {#if screen !== "loading"}
-<header class="fixed h-16 w-full top-0">
+<header class="z-50 fixed h-16 w-full top-0">
 	<Header />
 </header>
 {/if}
@@ -33,6 +34,8 @@
 	<DeletePlays deletePlayId={$appState.deletePlayId} />
 	{:else if screen === "how"}
 	<How />
+	{:else if screen === "info"}
+	<Info />
 	{:else if screen === "new_play"}
 	<NewPlay />
 	{:else if screen === "plays"}

@@ -23,5 +23,5 @@
 	<button on:click={() => { onPlayClicked(id) }} class="button w-5/6 button-lg mb-4">{$plays.plays[id].name}</button>
 	{/each}
 	<button on:click={onNewPlayClicked} class="button w-1/2 button-lg mb-4">New Play</button>
-	<button on:click={onDeletePlayClicked} class="button button-red w-1/2">Delete Play</button>
+	<button on:click={onDeletePlayClicked} class="button button-red button-lg w-1/2">Delete Play</button>
 </div>
