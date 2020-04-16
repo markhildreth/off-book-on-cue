@@ -64,11 +64,11 @@
 			on:mousedown={startUserLine}
 			on:click={stopUserLine}
 			disabled={!isRecording}
-			class="button p-12">
+			class="button p-6">
 			{#if $recording.isMyLine}
-				Your Line
+				Release when line is complete.
 			{:else}
-				Others Lines
+				Hold to say your line.
 			{/if}
 		</button>
 		<h3 class="text-4xl">{time}</h3>
