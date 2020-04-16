@@ -12,7 +12,7 @@
 	}
 </script>
 
-<header class="bg-blue-600 text-gray-100 px-4 h-full flex items-center justify-between">
+<header class="bg-blue-700 text-gray-100 px-4 h-full flex items-center justify-between">
 	<!-- Hack to even out the alignments -->
 	<div on:click={onGotoHome} class="cursor-pointer rounded-lg p-2 bg-blue-500">
 		<svg class="fill-current h-4" viewBox="0 -39 512 512" xmlns="http://www.w3.org/2000/svg">
