@@ -4,13 +4,21 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<meta name="theme-color" content="#3182ce" />
 	<title>Learn You Some Lines</title>
 	<link rel="stylesheet" href="./global.pcss" />
+	<link rel='manifest' href='./manifest.webmanifest'>
+	<link rel="apple-touch-icon" href="./assets/icon-256x256.png">
 </head>
 
 <body class="h-full font-inter antialiased text-gray bg-gray-100 max-w-md m-auto">
 	<script defer src="./main.js"></script>
-	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<noscript class="h-full">
+		<div class="h-full items-center mx-8 pt-8">
+			<h1 class="text-lg text-center pb-4">This app requires javascript.</h1>
+			<p>Unfortunately, this app requires javascript to be enabled in order to run.</p>
+		</div>
+	</noscript>
 	<div id="main" class="h-full"></div>
 </body>
 </html>
