@@ -3,7 +3,7 @@
 
 <div class="w-full px-4 overflow-y-auto h-full">
 	<h1 class="mt-4 text-center text-2xl">How it Works</h1>
-	<p class="mb-2">"Learn You Some Lines" works by taking you through the following steps:</p>
+	<p class="mb-2">"Off Book, On Cue" works by taking you through the following steps:</p>
 	<h2 class="font-semibold text-xl">1.) Record Scenes</h2>
 	<p class="mb-2">Using your microphone with the script open in front of you, record the lines of all characters, <em>including</em> your own. While recording your lines, hold down the "My Line" button.</p>
 	<h2 class="font-semibold text-xl">2.) Playback Scenes</h2>

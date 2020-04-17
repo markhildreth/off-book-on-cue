@@ -19,7 +19,7 @@
 			</svg>
 		</div>
 		<p class="text-2xl text-center">
-		"Learn You Some Lines" helps you memorize your lines.
+		"Off Book, On Cue" helps you memorize your lines.
 		</p>
 		<div class="flex flex-col">
 			<button class="button mb-8 button-lg" on:click={onHowClicked}>

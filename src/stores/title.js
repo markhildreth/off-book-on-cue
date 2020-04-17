@@ -8,5 +8,5 @@ export const title = derived([appState, plays], ([$appState, $play]) => {
 		return play.name;
 	}
 
-	return "Learn You Some Lines";
+	return "Off Book, On Cue";
 });
