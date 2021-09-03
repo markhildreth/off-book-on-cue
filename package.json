@@ -25,7 +25,7 @@
 		"eslint": "^6.8.0",
 		"eslint-cli": "^1.1.1",
 		"eslint-plugin-prettier": "^3.1.2",
-		"immer": "^5.3.2",
+		"immer": "^9.0.6",
 		"localforage": "^1.7.3",
 		"parcel-bundler": "^1.12.4",
 		"parcel-plugin-svelte": "^4.0.5",
